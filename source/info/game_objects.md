@@ -68,7 +68,7 @@ A map is a region that contains countries and that is contained at the root of t
 
 ### Cities
 
-A city is a geographical element that is contained in a territory. Cities are represented by parts in the game hierarchy. The number of cities in a territory is a factor of the reinforcement value of that territory.
+A city is a geographical element that is contained in a territory. Cities are represented by parts in the game hierarchy. The number of cities in a territory is a factor of the reinforcement value of that territory. Cities may have a name, but this is optional. City names are not currently used or displayed in the game.
 
 #### Importance
 
