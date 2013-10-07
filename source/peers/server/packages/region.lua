@@ -1,4 +1,7 @@
 --- The region package is used to generate maps and manipulate regions.
+-- @author Mark Otaris
+-- @copyright Copyright Mark Otaris 2013
+-- @license Creative Commons Attribution-ShareAlike 2.0 Generic
 
 local region = {}
 
