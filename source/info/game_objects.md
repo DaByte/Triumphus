@@ -42,7 +42,7 @@ A revolution is an event that occurs when a country or a territory becomes indep
 
 ### Territories
 
-A territory is a region that is contained in a country and that can contain cities. Territories can have one or many soldiers, and they are either part of an independent country or owned by an empire.
+A territory is a region that is contained in a country and that can contain cities. Territories can have one or many soldiers, and they are either part of an independent country or owned by an empire. Territories may have a name, but these names are not displayed or used in the game currently.
 
 #### Reinforcement
 
