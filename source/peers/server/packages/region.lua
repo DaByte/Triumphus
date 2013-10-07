@@ -2,6 +2,19 @@
 
 local region = {}
 
+settings:Add('RegionNames', 'string', "City")
+
+--- This function generates a random name for a region.
+-- The names are taken from a seed located in the setting named "RegionNames".
+-- This seed must consist of comma-separated names. The last name must have a comma after it.
+function region.generate_name()
+	local city_names = {}
+	for city_name in settings.CityNames do
+		city_names[#city_names + 1] = city_name
+	end
+	return city_names[math.random(#city_names)]
+end
+
 --- This function creates a city.
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
 -- @param territory This should be the territory the city will be part of.
