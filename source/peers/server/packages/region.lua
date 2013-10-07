@@ -1,5 +1,4 @@
 --- The region package is used to generate maps and manipulate regions.
--- @module region
 
 local region = {}
 
