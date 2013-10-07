@@ -1,11 +1,11 @@
-local neutralSpawns = {}
-local teamSpawns = {}
-local connections = {}
+if IsClient then
+	return nil
+end
 
-settings = require 'settings'
-
-settings:Add('CharacterAutoLoads','bool',true)
-settings:Add('RespawnCooldown','number',5)
+local settings = {
+	CharacterAutoLoads = true;
+	RespawnCooldown = 5;
+}
 
 local function getHumanoid(character)
 	local children = character:GetChildren()
@@ -19,14 +19,14 @@ end
 
 local addedPlayers = {}
 
-local function remove(player)
+local function Remove(player)
 	if addedPlayers[player] then
 		addedPlayers[player]:disconnect()
 		addedPlayers[player] = nil
 	end
 end
 
-local function add(player)
+local function Add(player)
 	local function respawn()
 		if not settings.CharacterAutoLoads then return end
 		wait(settings.RespawnCooldown)
@@ -47,6 +47,7 @@ local function add(player)
 end
 
 return {
-	add = add;
-	remove = remove;
+	Add = Add;
+	Remove = Remove;
+	Settings = settings;
 }

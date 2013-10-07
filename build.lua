@@ -4,6 +4,9 @@ if _VERSION == 'Lua 5.2' then
 	unpack = table.unpack
 end
 
+-- maximum length of strings in replicated instances
+MAX_STRING_LENGTH = 200000 - 1
+
 local saveRBXM do
 	-- because of the way XML is parsed, leading spaces get truncated
 	-- so, simply add a "\" when a space or "\" is detected as the first character
@@ -231,156 +234,13 @@ local function createValue(type,name,value)
 	return {ClassName=type .. 'Value', Name={'string',name}, Value={type:lower(),value}}
 end
 
-local valueTypes = {
-	['bool'] = function(name,data)
-		data = data:gsub('^%s+',''):gsub('%s+$',''):lower()
-		if data == ""
-		or data == "0"
-		or data == "false"
-		or data == "nil"
-		or data == "no"
-		or data == "null" then
-			data = false
-		else
-			data = true
-		end
-		return createValue('Bool',name,data)
-	end;
-
-	['brickcolor'] = function(name,data)
-		data = tonumber(data)
-		if not data then
-			print("WARNING: invalid data in `" .. name .. "`")
-			return nil
-		end
-		return {ClassName='BrickColorValue', Name={'string',name}, Value={'int',data}}
-	end;
-
-	['cframe'] = function(name,data)
-		local c = {components=function(c) return unpack(c) end}
-		for num in data:gmatch("[^%s,;]+") do
-			num = tonumber(num)
-			if not num then
-				print("WARNING: invalid data in `" .. name .. "`")
-				return nil
-			end
-			c[#c+1] = num
-		end
-		return {ClassName='CFrameValue', Name={'string',name}, Value={'CoordinateFrame',c}}
-	end;
-
-	['color3'] = function(name,data)
-		if data:sub(1,1) == '#' then
-			local hex = data:gsub('%s$',''):sub(2,7)
-			if #hex == 6 and not hex:match("%X") then
-				data = {
-					r = tonumber('0x' .. hex:sub(1,2))/255;
-					g = tonumber('0x' .. hex:sub(3,4))/255;
-					b = tonumber('0x' .. hex:sub(5,6))/255;
-				}
-			elseif #hex == 3 and not hex:match("%X") then
-				data = {
-					r = tonumber('0x' .. hex:sub(2,2) .. hex:sub(2,2))/255;
-					g = tonumber('0x' .. hex:sub(3,3) .. hex:sub(3,3))/255;
-					b = tonumber('0x' .. hex:sub(4,4) .. hex:sub(4,4))/255;
-				}
-			else
-				print("WARNING: invalid data in `" .. name .. "`")
-				return nil
-			end
-		else
-			local c = {}
-			for num in data:gmatch("[^%s,;]+") do
-				num = tonumber(num)
-				if not num then
-					print("WARNING: invalid data in `" .. name .. "`")
-					return nil
-				end
-				c[#c+1] = num
-			end
-			data = {r=c[1]/255,g=c[2]/255,b=c[3]/255}
-		end
-		return {ClassName='Color3Value', Name={'string',name}, Value={'Color3',data}}
-	end;
-
-	['doubleconstrained'] = function(name,data)
-		data = tonumber(data)
-		if not data then
-			print("WARNING: invalid data in `" .. name .. "`")
-			return nil
-		end
-		return {ClassName='DoubleConstrainedValue', Name={'string',name}, Value={'double',data}}
-	end;
-
-	['intconstrained'] = function(name,data)
-		data = tonumber(data)
-		if not data then
-			print("WARNING: invalid data in `" .. name .. "`")
-			return nil
-		end
-		return {ClassName='IntConstrainedValue', Name={'string',name}, Value={'int',data}}
-	end;
-
-	['int'] = function(name,data)
-		data = tonumber(data)
-		if not data then
-			print("WARNING: invalid data in `" .. name .. "`")
-			return nil
-		end
-		return createValue('Int',name,data)
-	end;
-
-	['number'] = function(name,data)
-		data = tonumber(data)
-		if not data then
-			print("WARNING: invalid data in `" .. name .. "`")
-			return nil
-		end
-		return {ClassName='NumberValue', Name={'string',name}, Value={'double',data}}
-	end;
-
-	['object'] = function(name,data)
-		if data == "" then
-			data = nil
-		end
-		return {ClassName='ObjectValue', Name={'string',name}, Value={'Ref',data}}
-	end;
-
-	['ray'] = function(name,data)
-		local c = {}
-		for num in data:gmatch("[^%s,;]+") do
-			num = tonumber(num)
-			if not num then
-				print("WARNING: invalid data in `" .. name .. "`")
-				return nil
-			end
-			c[#c+1] = num
-		end
-		data = {
-			Origin = {x=c[1],y=c[2],z=c[3]};
-			Direction = {x=c[4],y=c[5],z=c[6]};
-		}
-		return {ClassName='RayValue', Name={'string',name}, Value={'Ray',data}}
-	end;
-
-	['string'] = function(name,data)
-		return createValue('String',name,data)
-	end;
-
-	['vector3'] = function(name,data)
-		local c = {}
-		for num in data:gmatch("[^%s,;]+") do
-			num = tonumber(num)
-			if not num then
-				print("WARNING: invalid data in `" .. name .. "`")
-				return nil
-			end
-			c[#c+1] = num
-		end
-		data = {x=c[1],y=c[2],z=c[3]}
-		return {ClassName='Vector3Value', Name={'string',name}, Value={'Vector3',data}}
-	end;
-}
+local function checkSyntax(source)
+	-- If it's a script, you want to make sure it can compile!
+	local f, e = loadstring(source,'')
+	if not f then
+		print("WARNING: " .. e:gsub('^%[.-%]:',"line "))
+	end
+end
 
 local function handleFile(path,file,sub)
 	local content do
@@ -389,32 +249,24 @@ local function handleFile(path,file,sub)
 		f:close()
 	end
 
-	if not sub and file:lower() == "cure.lua" then
-		-- If it's a script, you want to make sure it can compile!
-		local f, e = loadstring(content,'')
-		if not f then
-			print("WARNING: " .. e:gsub('^%[.-%]:','line '))
-		end
-
+	if not sub and file:lower() == "cure.server.lua" then
+		checkSyntax(content)
 		return {ClassName='Script';
-			Name={'string',"cure"};
+			Name={'string',"cure.server"};
 			Source={'ProtectedString',content};
-			{ClassName='LocalScript';
-				Name={'string',"cure"};
-				Source={'ProtectedString',content};
-			};
+		}
+	elseif not sub and file:lower() == "cure.client.lua" then
+		checkSyntax(content)
+		return {ClassName='LocalScript';
+			Name={'string',"cure.client"};
+			Source={'ProtectedString',content};
 		}
 	end
 
 	local name,ext = splitName(file)
 	ext = ext:lower()
 	if ext == "lua" then
-		-- If it's a script, you want to make sure it can compile!
-		local f, e = loadstring(content,'')
-		if not f then
-			print("WARNING: " .. e:gsub('^%[.-%]:','line '))
-		end
-
+		checkSyntax(content)
 		local subname,subext = splitName(name)
 		if subext:lower() == "script" then
 			return {ClassName='Script';
@@ -427,8 +279,7 @@ local function handleFile(path,file,sub)
 				Source={'ProtectedString',content};
 			}
 		else
-			-- maximum size of strings in replicated instances
-			local chunk = 200000 - 1
+			local chunk = MAX_STRING_LENGTH
 			local length = #content
 			if length <= chunk then
 				return createValue('String',name,content)
@@ -450,13 +301,7 @@ local function handleFile(path,file,sub)
 		end
 		return createValue('Int',name,content)
 	elseif ext == "value" then
-		local subname,subext = splitName(name)
-		subext = subext:lower()
-		if valueTypes[subext] then
-			return valueTypes[subext](subname,content)
-		else
-			print("WARNING: unknown value type `" .. subext .. "` of `" .. file .. "`")
-		end
+		return createValue('String',name,content)
 	else
 		return {ClassName='Script';
 			Name={'string',name};
@@ -483,7 +328,7 @@ local function recurseDir(path,obj,r)
 end
 
 local rbxmObj = recurseDir("source",{ClassName='Configuration', Name={'string',"cure"}})
-saveRBXM(rbxmObj,"build/cure.rbxm")
+saveRBXM(rbxmObj,"build/" .. ((...) or "cure.rbxm"))
 
 local f = io.open("locations.txt")
 if f then

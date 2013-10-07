@@ -1,27 +1,31 @@
 # Spawner Package
 
-Provides replacement functionality for character spawning, which is normally overridden by Cure.
+Provides replacement functionality for character spawning, which is normally
+overridden by Cure. Not available to clients.
 
 
 ## API
 
-- `spawner.add ( player )`
+- `spawner.Add ( player )`
 
 	Adds a player to the spawner. Usually used with Player.PlayerAdded.
 
-- `spawner.remove ( player )`
+- `spawner.Remove ( player )`
 
-	Removes a player from the spawner. Usually used with Player.PlayerRemoving.
+	Removes a player from the spawner. Usually used with
+	Player.PlayerRemoving.
 
+- `spawner.Settings`
 
-## Settings
+	A table of settings. Contains the following values:
 
-This package depends on the **Settings** package. The following settings are introduced:
+	- CharacterAutoLoads
 
-- CharacterAutoLoads
+		A bool indicating whether the character of a player will load
+		automatically. Use this setting in place of
+		`Players.CharacterAutoLoads`. Defaults to `true`.
 
-	A bool indicating whether the character of a player will load automatically. Use this setting in place of `Players.CharacterAutoLoads`. Defaults to `true`.
+	- RespawnCooldown
 
-- RespawnCooldown
-
-	A number indicating the amount of time to wait after a character dies before respawning, in seconds. Defaults to 5.
+		A number indicating the amount of time to wait after a character dies
+		before respawning, in seconds. Defaults to 5.
