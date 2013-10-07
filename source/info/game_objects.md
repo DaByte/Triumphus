@@ -70,6 +70,10 @@ A map is a region that contains countries and that is contained at the root of t
 
 A city is a geographical element that is contained in a territory. Cities are represented by parts in the game hierarchy. The number of cities in a territory is a factor of the reinforcement value of that territory.
 
+#### Importance
+
+Some cities may be considered by the game as important, while others may be considered as not important. If a city is important, it will contain a `BoolValue` object named "Important" of which the value will be `true`. Important cities will earn the territory that contain them a higher reinforcement value bonus than cities that are not important. They will also have a different color.
+
 ### Mountains
 
 A mountain is a geographical element that is contained in a territory. Mountains are represented by models in the game hierarchy. A territory that contains a mountain will receive a defense bonus.
