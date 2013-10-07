@@ -62,7 +62,7 @@ A country capital is a territory which is the capital of a country. Country capi
 
 ### Maps
 
-A map is a region that contains countries and that is contained at the root of the physical game hierarchy. There can only be one map at a time in a particular game instance.
+A map is a region that contains countries and that is contained at the root of the physical game hierarchy. There can only be one map at a time in a particular game instance. All maps have a name, and map names must be unique.
 
 ## Geographical elements
 
