@@ -1,4 +1,4 @@
---- The region module is used to generate maps and manipulate regions.
+--- The region package is used to generate maps and manipulate regions.
 
 local region = {}
 
