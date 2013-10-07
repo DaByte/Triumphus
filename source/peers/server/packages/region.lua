@@ -68,6 +68,14 @@ function region.create_territory(country, size, position, name)
 	territory.Size = Vector3.new(size.X, 0, size.Y)
 	territory.TopSurface = Enum.SurfaceType.Smooth
 
+	local bindable_create_city = Instance.new('BindableFunction', territory)
+	bindable_create_city.Name = "CreateCity"
+	bindable_create_city.OnInvoke = function(...) region.create_city(territory, ...) end
+	
+	local bindable_generate_city = Instance.new('BindableFunction', territory)
+	bindable_generate_city.Name = "GenerateCity"
+	bindable_generate_city.OnInvoke = function(...) region.generate_city(territory, ...) end
+
 	return territory
 end
 
@@ -82,7 +90,7 @@ function region.create_country(name, map)
 	
 	local bindable_create_territory = Instance.new('BindableFunction', country)
 	bindable_create_territory.Name = "CreateTerritory"
-	bindable_create_territory.OnInvoke = function(...) region.create_territory(bindable_create_territory, ...) end
+	bindable_create_territory.OnInvoke = function(...) region.create_territory(country, ...) end
 
 	return country
 end
@@ -98,7 +106,7 @@ function region.create_map(name, parent)
 
 	local bindable_create_country = Instance.new('BindableFunction', map)
 	bindable_create_country.Name = "CreateCountry"
-	bindable_create_country.OnInvoke = function(...) region.create_country(bindable_create_country, ...) end
+	bindable_create_country.OnInvoke = function(name) region.create_country(name, map) end
 
 	return map
 end
