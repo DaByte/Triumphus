@@ -22,6 +22,7 @@ end
 -- @param name This is an optional parameter that indicates the name of the city. If none ism entioned, the name "City" will be used.
 -- @return A `Part` object that represents the city.
 function region.create_city(territory, important, name)
+	-- TODO: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
 	local city = Instance.new('Part', territory)
 	city.Name = name or "City"
 	city.Anchored = true
@@ -43,9 +44,8 @@ end
 -- This function will generate a city with a random importance, a random position (not implemented) and a random name (not implemented).
 -- @param territory This should be the territory the city will be part of.
 function region.generate_city(territory)
-	-- TODO: find a way to generate a random name for the city
 	-- TODO: generate a random position for the city and make sure it doesn't overlap with another city or is too close (using magnitude)
-	local city = region.create_city(territory, math.random(2) == 1)
+	local city = region.create_city(territory, math.random(2) == 1, region.generate_name())
 end
 
 --- This function creates a territory.
