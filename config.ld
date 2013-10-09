@@ -1,5 +1,6 @@
 project = "Triumphus"
 title = "Triumphus documentation"
+description = "Triumphus is a territory conquest game for ROBLOX."
 format = "discount"
 colon = true
 topics = {
