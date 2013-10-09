@@ -1,19 +1,6 @@
---- The network module provides communication between peers. It is part of Cure, the framework that supports Triumphus.
---
--- Communication is done by abstracting RemoteFunction objects as "sockets" and
--- "listeners". All network related objects are contained in the "network"
--- Configuration object, which is stored in the ReplicatedStorage service.
--- module: network
-
-
 MethodClose = 0
 MethodInit = 1
 MethodSend = 2
-
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
 
 -- Container for network remotes
 local Network = Game:GetService('ReplicatedStorage'):FindFirstChild("network")
@@ -61,11 +48,6 @@ Network.ChildRemoved:connect(function(c)
 	end
 end)
 
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
-
 local function validatePort(port)
 	if type(port) ~= 'number' then
 		return nil
@@ -79,21 +61,7 @@ local function validatePort(port)
 	return port
 end
 
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
-----------------------------------------------------------------
-
 local network = {}
-
---- A Socket represents a connection between two peers.
--- Sockets have the following members:
--- field: Recipient A Player object representing the peer the socket is connected to. Will be `true` if the recipient is the server.
--- field: Closed A bool indicating whether the socket has been closed.
--- field: Send Sends data to the recipient.
--- field: Receive Receives data from the recipient. Received data is buffered, so this function will block if the buffer is empty. The values returned correspond to the arguments given to a Send call.
--- field: Close Closes the connection. Subsequent calls to Send and Receive will throw an error. If Receive is blocking, then it will throw an error.
--- type: Socket
 
 if IsServer then
 	local initPeer do
@@ -186,10 +154,7 @@ if IsServer then
 
 		return socket
 	end
-	
---- Returns a new Socket object.
--- 	!Player: peer A Player object representing the peer to connect to. A nil value indicates the server as the peer.
--- 	int: port An integer between 0 and 65536. It is used as a filter for listeners. Defaults to 0.
+
 	function network.Socket(peer,port)
 		if not validatePort(port or 0) then
 			error("invalid port number",2)
@@ -246,15 +211,6 @@ if IsServer then
 		end
 end
 
---- A Listener is used to detect incoming connections from other peers.
--- field: Port The port the listener is listening on. Can be modified.
--- field: Callback A function called when a connection is detected. The only parameter passed to the callback is a socket object representing the detected connection. Can be modified.
--- field: Close Closes the listener.
--- type: Listener
-
---- Returns a new Listener object.
--- 	int: port The port number to listen on. The listener will only listen for sockets with the same port number.
--- 	function: callback A function called when the listener detects a connection. The only parameter passed to the callback is a socket object representing the detected connection.
 	function network.Listener(port,callback)
 		local listener = {
 			Port = port or 0;
