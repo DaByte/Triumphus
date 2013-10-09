@@ -21,7 +21,7 @@ end
 
 --- This function creates a city.
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
--- @{[[Part]]}: territory This should be the territory the city will be part of.
+-- !@{[[Part]]}: territory This should be the territory the city will be part of.
 -- ?bool: important This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed that the city is not important.
 -- ?string: name This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
 -- treturn: @{[[Part]]} A @{[[Part]]} object that represents the city.
@@ -46,7 +46,7 @@ end
 --- This function generates a city.
 -- It should not be used directly; instead, the `GenerateCity` bindable function located inside territory objects should be used.
 -- This function will generate a city with a random importance, a random position (not implemented) and a random name (not implemented).
--- @{[[Part]]}: territory This should be the territory the city will be part of.
+-- !@{[[Part]]}: territory This should be the territory the city will be part of.
 -- todo: Generate a random position for the city and make sure it doesn't overlap with another city or is too close (using magnitude)
 function region.generate_city(territory)
 	local city = region.create_city(territory, math.random(2) == 1, region.generate_name())
@@ -54,9 +54,9 @@ end
 
 --- This function creates a territory.
 -- It should not be used directly; instead, the `CreateTerritory` bindable function located inside country objects should be used.
--- @{[[Model]]}: country This should be the country the territory will be part of.
--- @{[[Vector2]]}: size This should be the size of the territory.
--- @{[[Vector2]]}: position This should be the position of the territory.
+-- !@{[[Model]]}: country This should be the country the territory will be part of.
+-- !@{[[Vector2]]}: size This should be the size of the territory.
+-- !@{[[Vector2]]}: position This should be the position of the territory.
 -- string: name This is an optional parameter that indicates the name of the territory. If none is mentioned, the name "Territory" will be used.
 -- treturn: @{[[Part]]} A @{[[Part]]} object that can contain parts representing cities and parts or models representing geographical elements.
 function region.create_territory(country, size, position, name)
@@ -82,7 +82,7 @@ end
 --- This function creates a country.
 -- It should not be used directly; instead, the `CreateCountry` bindable function located inside map objects should be used.
 -- string: name This should be the name of the country that will be created. This parameter is mandatory, but if it is not specified, the name "Country" will be used.
--- @{[[Model]]}: map This should be the map the country will be part of.
+-- !@{[[Model]]}: map This should be the map the country will be part of.
 -- treturn: @{[[Model]]} A @{[[Model]]} object of which the `Name` property is the name of the country. The model can contain parts representing territories.
 function region.create_country(name, map)
 	local country = Instance.new('Model', map)
