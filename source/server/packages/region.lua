@@ -22,7 +22,7 @@ end
 --- This function creates a city.
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
 -- !Part: territory This should be the territory the city will be part of.
--- ?bool: important This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed thecity is not important.
+-- ?bool: important This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed that the city is not important.
 -- ?string: name This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
 -- treturn: Part A `Part` object that represents the city.
 -- todo: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
