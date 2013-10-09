@@ -1,4 +1,7 @@
+project = "Triumphus"
+title = "Triumphus documentation"
 format = "lunamark"
+colon = true
 topics = {
 	"source/info/00-introduction.md";
 	"source/info/01-cure.md";

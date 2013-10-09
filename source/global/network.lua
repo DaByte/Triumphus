@@ -77,7 +77,7 @@
 -- - `Listener:Close ( )`
 --
 -- 	Closes the listener.
--- @module network
+-- module: network
 
 
 MethodClose = 0

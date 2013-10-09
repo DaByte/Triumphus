@@ -25,7 +25,7 @@
 --
 -- 		A number indicating the amount of time to wait after a character dies
 -- 		before respawning, in seconds. Defaults to 5.
--- @module spawner
+-- module: spawner
 
 
 if IsClient then

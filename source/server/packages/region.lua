@@ -1,8 +1,8 @@
 --- The region package is used to generate maps and manipulate regions.
--- @author Mark Otaris
--- @copyright Copyright Mark Otaris 2013
--- @license Creative Commons Attribution-ShareAlike 2.0 Generic
--- @module region
+-- author: Mark Otaris
+-- copyright: Copyright Mark Otaris 2013
+-- license: Creative Commons Attribution-ShareAlike 2.0 Generic
+-- module: region
 
 local region = {}
 
@@ -21,10 +21,10 @@ end
 
 --- This function creates a city.
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
--- @param territory This should be the territory the city will be part of.
--- @param important This should be a boolean value that indicates whether the city that will be created is important.
--- @param name This is an optional parameter that indicates the name of the city. If none ism entioned, the name "City" will be used.
--- @return A `Part` object that represents the city.
+-- territory: This should be the territory the city will be part of.
+-- important: This should be a boolean value that indicates whether the city that will be created is important.
+-- name: This is an optional parameter that indicates the name of the city. If none ism entioned, the name "City" will be used.
+-- return: A `Part` object that represents the city.
 function region.create_city(territory, important, name)
 	-- TODO: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
 	local city = Instance.new('Part', territory)
