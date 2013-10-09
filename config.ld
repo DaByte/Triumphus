@@ -1,6 +1,6 @@
 project = "Triumphus"
 title = "Triumphus documentation"
-format = "lunamark"
+format = "discount"
 colon = true
 topics = {
 	"source/info/00-introduction.md";
