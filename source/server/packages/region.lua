@@ -23,7 +23,7 @@ end
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
 -- territory: This should be the territory the city will be part of.
 -- important: This should be a boolean value that indicates whether the city that will be created is important.
--- name: This is an optional parameter that indicates the name of the city. If none ism entioned, the name "City" will be used.
+-- name: This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
 -- return: A `Part` object that represents the city.
 function region.create_city(territory, important, name)
 	-- TODO: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
@@ -57,7 +57,7 @@ end
 -- @param country This should be the country the territory will be part of.
 -- @param size This should be the size of the territory, a `Vector2` object.
 -- @param position This should be the position of the territory, a `Vector2` object.
--- @param name This is an optional parameter that indicates the name of the territory. If none ism entioned, the name "Territory" will be used.
+-- @param name This is an optional parameter that indicates the name of the territory. If none is mentioned, the name "Territory" will be used.
 -- @return A `Part` object that can contain parts representing cities and parts or models representing geographical elements.
 function region.create_territory(country, size, position, name)
 	local territory = Instance.new('Part', country)
