@@ -9,3 +9,11 @@ topics = {
 	"source/info/02-game_objects.md"
 }
 not_luadoc = true
+
+-- Support for [[pagename]] and [[pagename|displayed text]] links to the ROBLOX wiki.
+custom_see_handler('%[%[([%w_]+)%]%]', function(name)
+	return name, "http://wiki.roblox.com/index.php/" .. name
+end)
+custom_see_handler('%[%[([%w_]+)|([%w_]+)%]%]', function(name, displayed_text)
+	return displayed_text, "http://wiki.roblox.com/index.php/" .. name
+end)
