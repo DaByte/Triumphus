@@ -11,6 +11,7 @@ settings:Add('RegionNames', 'string', "City")
 --- This function generates a random name for a region.
 -- The names are taken from a seed located in the setting named "RegionNames".
 -- This seed must consist of comma-separated names. The last name must have a comma after it.
+-- treturn: string A random name for a region.
 function region.generate_name()
 	local city_names = {}
 	for city_name in settings.CityNames do
