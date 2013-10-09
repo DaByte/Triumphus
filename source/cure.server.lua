@@ -1,5 +1,4 @@
---- This is the server version of the main Cure control script.
--- @script Cure (server)
+-- This is the server version of the main Cure control script.
 
 -- maxmimum length of strings that can be passed through a remote. Exceeding
 -- this values disconnects the client.
