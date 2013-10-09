@@ -98,7 +98,7 @@ end
 
 --- This function creates a map.
 -- string: name This should be the name of the map that will be created. This parameter is mandatory, but if it is not specified, the name "Map" will be used.
--- ?Workspace: parent This should be either the value `nil`, if the map is not meant to be used yet, or the root of the physical game hierarchy.
+-- ?[[Workspace]]: parent This should be either the value `nil`, if the map is not meant to be used yet, or the root of the physical game hierarchy.
 -- treturn: @{[[Model]]} A @{[[Model]]} object of which the @{[[Name]]} property is the name of the map and that can contain @{[[Model]]} objects representing countries.
 function region.create_map(name, parent)
 	local map = Instance.new('Model', parent)
