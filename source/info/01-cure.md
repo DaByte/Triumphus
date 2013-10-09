@@ -33,29 +33,11 @@ used, which allows for cleaner source code.
 **Sources** are Roblox instances that refer to source code in some way. The
 type of source depends on the Roblox class used:
 
-- StringValue
+- StringValue: Indicates a single-part source. The Value contains the source code.
 
-	Indicates a single-part source. The Value contains the source code.
+- BoolValue: Indicates a divided, multi-part source. Because Roblox tends to crash or disconnect when replicating large strings, large source code is split into multiple parts. These parts are contained in StringValues, which are children of the BoolValue.
 
-- BoolValue
-
-	Indicates a divided, multi-part source. Because Roblox tends to crash or
-	disconnect when replicating large strings, large source code is split into
-	multiple parts. These parts are contained in StringValues, which are
-	children of the BoolValue.
-
-- IntValue
-
-	Indicates an external Roblox asset. The Value indicates the asset ID to
-	load, which should be a model. The model may be of any source in this
-	list. Basically, treat IntValues as if they are replaced by the asset they
-	represent.
-
-Because of the way Roblox parses XML, whitespace at the start of strings are
-truncated. To get around this, if the first character in a string is
-whitespace or a "\" character, then the string will be encoded simply by
-adding a "\" character to the beginning. To decode, if a string starts with a
-"\", then that character is removed.
+- IntValue: Indicates an external Roblox asset. The Value indicates the asset ID to load, which should be a model. The model may be of any source in this list. Basically, treat IntValues as if they are replaced by the asset they represent. <p>Because of the way Roblox parses XML, whitespace at the start of strings are truncated. To get around this, if the first character in a string is whitespace or a "\" character, then the string will be encoded simply by adding a "\" character to the beginning. To decode, if a string starts with a "\", then that character is removed.</p>
 
 
 ### Structure
@@ -64,35 +46,17 @@ Cure consists of the following Roblox instances, all contained under a single
 Configuration instance (the "cure container"). The cure container should be a
 child of ServerScriptService.
 
-- `cure.server` (Script)
+- `cure.server` (Script): The main control script for the server.
 
-	The main control script for the server.
+- `cure.client` (LocalScript): The main control script for clients.
 
-- `cure.client` (LocalScript)
+- `server` (Configuration): Contains packages and scripts for the server. This folder contains two folders, `packages` and `scripts`. These are where your packages and scripts go, respectively. Packages and scripts.
 
-	The main control script for clients.
+- `client` (Configuration): Similar to the `server` folder, but contains packages and scripts that are to be run on clients.
 
-- `server` (Configuration)
+- `global` (Configuration): This folder contains packages that are available on both clients and the server. Cure comes with a few of these global packages built-in.
 
-	Contains packages and scripts for the server. This folder contains two
-	folders, `packages` and `scripts`. These are where your packages and
-	scripts go, respectively. Packages and scripts.
-
-- `client` (Configuration)
-
-	Similar to the `server` folder, but contains packages and scripts that are
-	to be run on clients.
-
-- `global` (Configuration)
-
-	This folder contains packages that are available on both clients and the
-	server. Cure comes with a few of these global packages built-in.
-
-- `info` (Configuration)
-
-	Contains general information and documentation about the project. By
-	default, this folder contains documentation for the built-in global
-	packages.
+- `info` (Configuration): Contains general information and documentation about the project. By default, this folder contains documentation for the built-in global packages.
 
 Note that the `global` folder, as well as the `packages` and `scripts` folders
 of each peer, may contain sub-folders. Cure will automatically recurse every
@@ -115,63 +79,30 @@ the name of the package (sub-folders do not make a difference).
 
 Currently, the following extra global variables are defined:
 
-- `require ( package, fetch )`
+- `require ( package, fetch )`: A function that loads a package. The first argument is the name of the package to load. For example, a package source with the name of "example" would be loaded by calling `require('example')`.<p>Note that a package contained within a sub-folder must be referenced by its entire directory, separated by `.` characters. For example:</p>
+   -- require `packages/foo/bar/package.lua`
+   require('foo.bar.package')
 
-	A function that loads a package. The first argument is the name of the
-	package to load. For example, a package source with the name of "example"
-	would be loaded by calling `require('example')`.
+	The results returned by the package are returned by `require`. If the package has already been loaded, then the results are reused instead of loading the package again. Note that the results are not added to the current environment, so it is not sufficient enough to simply call `require('example')`. The results can be acquired by using something like `example = require('example')`.
 
-	Note that a package contained within a sub-folder must be referenced by
-	its entire directory, separated by `.` characters. For example:
+	Global packages may also be required, though it's usually not necessary, since they're already available to the environment.
 
-		-- require `packages/foo/bar/package.lua`
-		require('foo.bar.package')
-
-	The results returned by the package are returned by `require`. If the
-	package has already been loaded, then the results are reused instead of
-	loading the package again. Note that the results are not added to the
-	current environment, so it is not sufficient enough to simply call
-	`require('example')`. The results can be acquired by using something like
-	`example = require('example')`.
-
-	Global packages may also be required, though it's usually not necessary,
-	since they're already available to the environment.
-
-	Normally, if a package does not exist, then require will throw an error.
-	However, if the second, optional argument to require is not false, then
+	Normally, if a package does not exist, then require will throw an error. However, if the second, optional argument to require is not false, then
 	require will return no value instead.
 
-- `IsServer`
-
-	A bool indicating whether the peer is the server.
-
-- `IsClient`
-
-	A bool indicating whether the peer is a client. Should always be opposite
-	of `IsServer`.
-
-- `cure`
-
-	A reference to the cure container. This global is only available on the
-	server.
+- `IsServer`: A bool indicating whether the peer is the server.
+- `IsClient`: A bool indicating whether the peer is a client. Should always be the opposite of `IsServer`.
+- `cure`: A reference to the cure container. This global is only available on the server.
 
 
 ### Run-time Procedure
 
 At run-time, the Cure server control script does the following things:
 
-1. **Gather source code for server packages.**
-
-	Each source in the `server.packages` folder is converted to source code,
+1. **Gather source code for server packages.** Each source in the `server.packages` folder is converted to source code,
 	then stored for later requiring.
 
-2. **Run global packages.**
-
-	Each source in the `global` folder is converted to source code, required,
-	and added to the main environment automatically. This means that they
-	share the same space as normal packages, which allows global packages to
-	require other global packages. It also means that global packages will
-	override normal packages that have the same name.
+2. **Run global packages.** Each source in the `global` folder is converted to source code, required, and added to the main environment automatically. This means that they share the same space as normal packages, which allows global packages to require other global packages. It also means that global packages will override normal packages that have the same name.
 
 	Each global package is available in the main environment, and in the
 	`shared` table, under the name of the package. Sub-folders do not affect
