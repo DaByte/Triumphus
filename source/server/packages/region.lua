@@ -21,10 +21,10 @@ end
 
 --- This function creates a city.
 -- It should not be used directly; instead, the `CreateCity` bindable function located inside territory objects should be used.
--- territory: This should be the territory the city will be part of.
--- important: This should be a boolean value that indicates whether the city that will be created is important.
--- name: This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
--- return: A `Part` object that represents the city.
+-- Model: territory This should be the territory the city will be part of.
+-- ?bool: important This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed thecity is not important.
+-- ?string: name This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
+-- treturn: Part A `Part` object that represents the city.
 function region.create_city(territory, important, name)
 	-- TODO: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
 	local city = Instance.new('Part', territory)
