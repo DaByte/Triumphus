@@ -1,3 +1,6 @@
+--- This is the client version of the main Cure control script.
+-- @script Cure (client)
+
 -- The globals `IsServer` and `IsClient` indicate whether the script is
 -- running on the server or a client. Since these values are global, they may
 -- also be used by packages.

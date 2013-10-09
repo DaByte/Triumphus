@@ -4,10 +4,7 @@
 
 ## Building
 
-In order to run `build.lua`, you'll need two things:
-
-- A Lua interpreter
-- The LuaFileSystem module
+Triumphus is executed by running `build.lua`. This requires a Lua interpreter and the LuaFileSystem module, which can be obtained from LuaRocks.
 
 ## License
 

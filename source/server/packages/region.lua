@@ -2,6 +2,7 @@
 -- @author Mark Otaris
 -- @copyright Copyright Mark Otaris 2013
 -- @license Creative Commons Attribution-ShareAlike 2.0 Generic
+-- @module region
 
 local region = {}
 

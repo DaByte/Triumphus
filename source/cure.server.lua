@@ -1,3 +1,6 @@
+--- This is the server version of the main Cure control script.
+-- @script Cure (server)
+
 -- maxmimum length of strings that can be passed through a remote. Exceeding
 -- this values disconnects the client.
 MAX_STRING_LENGTH = 200000

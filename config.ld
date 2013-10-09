@@ -1,3 +1,6 @@
 format = "markdown"
-files = "source/server/packages/region.lua"
-topics = {"README.md", "source/info/game_objects.md", "source/info/network.md", "source/info/settings.md", "source/info/spawner.md"}
+topics = {
+	"source/info/00-introduction.md";
+	"source/info/01-cure.md";
+	"source/info/02-game_objects.md"
+}
