@@ -24,7 +24,7 @@ end
 -- !Part: territory This should be the territory the city will be part of.
 -- ?bool: important This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed thecity is not important.
 -- ?string: name This is an optional parameter that indicates the name of the city. If none is mentioned, the name "City" will be used.
--- treturn: !Part A `Part` object that represents the city.
+-- treturn: Part A `Part` object that represents the city.
 -- todo: Add support for positions. They should be relative to the middle of the territory or to its northwest corner.
 function region.create_city(territory, important, name)
 	local city = Instance.new('Part', territory)
@@ -58,7 +58,7 @@ end
 -- !Vector2: size This should be the size of the territory.
 -- !Vector2: position This should be the position of the territory.
 -- string: name This is an optional parameter that indicates the name of the territory. If none is mentioned, the name "Territory" will be used.
--- treturn: !Part A `Part` object that can contain parts representing cities and parts or models representing geographical elements.
+-- treturn: Part A `Part` object that can contain parts representing cities and parts or models representing geographical elements.
 function region.create_territory(country, size, position, name)
 	local territory = Instance.new('Part', country)
 	territory.Name = name or "Territory"
@@ -84,7 +84,7 @@ end
 -- It should not be used directly; instead, the `CreateCountry` bindable function located inside map objects should be used.
 -- string: name This should be the name of the country that will be created. This parameter is mandatory, but if it is not specified, the name "Country" will be used.
 -- !Model: map This should be the map the country will be part of.
--- treturn: !Model A `Model` object of which the `Name` property is the name of the country. The model can contain parts representing territories.
+-- treturn: Model A `Model` object of which the `Name` property is the name of the country. The model can contain parts representing territories.
 function region.create_country(name, map)
 	local country = Instance.new('Model', map)
 	country.Name = name or "Country"
@@ -100,7 +100,7 @@ end
 --- This function creates a map.
 -- string: name This should be the name of the map that will be created. This parameter is mandatory, but if it is not specified, the name "Map" will be used.
 -- ?Workspace: parent This should be either the value `nil`, if the map is not meant to be used yet, or the root of the physical game hierarchy.
--- treturn: !Model A `Model` object of which the `Name` property is the name of the map and that can contain `Model` objects representing countries.
+-- treturn: Model A `Model` object of which the `Name` property is the name of the map and that can contain `Model` objects representing countries.
 function region.create_map(name, parent)
 	local map = Instance.new('Model', parent)
 	map.Name = name or "Map"
