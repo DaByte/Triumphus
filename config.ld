@@ -7,3 +7,4 @@ topics = {
 	"source/info/01-cure.md";
 	"source/info/02-game_objects.md"
 }
+not_luadoc = true
