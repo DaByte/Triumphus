@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Triumphus documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Triumphus</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>region</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul class="nowrap">
+  <li><a href="topics/00-introduction.md.html">00-introduction.md</a></li>
+  <li><a href="topics/01-game_objects.md.html">01-game_objects.md</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>region</code></h1>
+
+<p>The region package is used to generate maps and manipulate regions.</p>
+<p>
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: Copyright Mark Otaris 2013</li>
+        <li><strong>License</strong>: Creative Commons Attribution-ShareAlike 2.0 Generic</li>
+        <li><strong>Author</strong>: Mark Otaris</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#generate_name">generate_name ()</a></td>
+	<td class="summary">This function generates a random name for a region.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_city">create_city (territory, important, name)</a></td>
+	<td class="summary">This function creates a city.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_city">generate_city (territory)</a></td>
+	<td class="summary">This function generates a city.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_territory">create_territory (country, size, position, name)</a></td>
+	<td class="summary">This function creates a territory.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_country">create_country (name, map)</a></td>
+	<td class="summary">This function creates a country.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_map">create_map (name, parent)</a></td>
+	<td class="summary">This function creates a map.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "generate_name"></a>
+    <strong>generate_name ()</strong>
+    </dt>
+    <dd>
+    This function generates a random name for a region.
+ The names are taken from a seed located in the setting named &ldquo;RegionNames&rdquo;.
+ This seed must consist of comma-separated names. The last name must have a comma after it.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A random name for a region.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_city"></a>
+    <strong>create_city (territory, important, name)</strong>
+    </dt>
+    <dd>
+    This function creates a city.
+ It should not be used directly; instead, the <code>CreateCity</code> bindable function located inside territory objects should be used.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">territory</span>
+            <span class="types"><span class="type">Part</span></span>
+         This should be the territory the city will be part of.
+        </li>
+        <li><span class="parameter">important</span>
+            <span class="types">optional <span class="type">bool</span></span>
+         This should be a boolean value that indicates whether the city that will be created is important. If not specified, it will be assumed that the city is not important.
+        </li>
+        <li><span class="parameter">name</span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         This is a parameter that indicates the name of the city. If none is mentioned, the name &ldquo;City&rdquo; will be used.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Part</span></span>
+        A <a href="http://wiki.roblox.com/index.php/Part">Part</a> object that represents the city.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_city"></a>
+    <strong>generate_city (territory)</strong>
+    </dt>
+    <dd>
+    This function generates a city.
+ It should not be used directly; instead, the <code>GenerateCity</code> bindable function located inside territory objects should be used.
+ This function will generate a city with a random importance, a random position (not implemented) and a random name (not implemented).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">territory</span>
+            <span class="types"><span class="type">Part</span></span>
+         This should be the territory the city will be part of.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Part</span></span>
+        A <a href="http://wiki.roblox.com/index.php/Part">Part</a> object that represents the city.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_territory"></a>
+    <strong>create_territory (country, size, position, name)</strong>
+    </dt>
+    <dd>
+    This function creates a territory.
+ It should not be used directly; instead, the <code>CreateTerritory</code> bindable function located inside country objects should be used.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">country</span>
+            <span class="types"><span class="type">Model</span></span>
+         This should be the country the territory will be part of.
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">Vector2</span></span>
+         This should be the size of the territory.
+        </li>
+        <li><span class="parameter">position</span>
+            <span class="types"><span class="type">Vector2</span></span>
+         This should be the position of the territory.
+        </li>
+        <li><span class="parameter">name</span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         This is a parameter that indicates the name of the territory. If none is mentioned, the name &ldquo;Territory&rdquo; will be used.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Part</span></span>
+        A <a href="http://wiki.roblox.com/index.php/Part">Part</a> object that can contain parts representing cities and parts or models representing geographical elements.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_country"></a>
+    <strong>create_country (name, map)</strong>
+    </dt>
+    <dd>
+    This function creates a country.
+ It should not be used directly; instead, the <code>CreateCountry</code> bindable function located inside map objects should be used.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         This should be the name of the country that will be created. This parameter is mandatory, but if it is not specified, the name &ldquo;Country&rdquo; will be used.
+        </li>
+        <li><span class="parameter">map</span>
+            <span class="types"><span class="type">Model</span></span>
+         This should be the map the country will be part of.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Model</span></span>
+        A <a href="http://wiki.roblox.com/index.php/Model">Model</a> object of which the <code>Name</code> property is the name of the country. The model can contain parts representing territories.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_map"></a>
+    <strong>create_map (name, parent)</strong>
+    </dt>
+    <dd>
+    This function creates a map.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         This should be the name of the map that will be created. This parameter is mandatory, but if it is not specified, the name &ldquo;Map&rdquo; will be used.
+        </li>
+        <li><span class="parameter">parent</span>
+            <span class="types">optional <span class="type">Workspace</span></span>
+         This should be either the value <code>nil</code>, if the map is not meant to be used yet, or the root of the physical game hierarchy.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Model</span></span>
+        A <a href="http://wiki.roblox.com/index.php/Model">Model</a> object of which the <a href="http://wiki.roblox.com/index.php/Name">Name</a> property is the name of the map and that can contain <a href="http://wiki.roblox.com/index.php/Model">Model</a> objects representing countries.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
