@@ -1,5 +1,3 @@
-# Triumphus
-
 **Triumphus** is a territory conquest game that runs on the ROBLOX platform with the Cure framework, which is described in the next document.
 
 ## Building

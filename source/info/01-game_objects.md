@@ -1,7 +1,3 @@
-This document describes the objects that are part of this game.
-
-# Game objects
-
 Game objects are objects that define the structure of the game. They all have a representation in the game hierarchy.
 
 ## Entities
