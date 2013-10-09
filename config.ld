@@ -3,6 +3,7 @@ title = "Triumphus documentation"
 description = "Triumphus is a territory conquest game for ROBLOX."
 format = "discount"
 colon = true
+all = true
 topics = {
 	"source/info/00-introduction.md";
 	"source/info/01-cure.md";
