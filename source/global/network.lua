@@ -4,7 +4,7 @@
 -- "listeners". All network related objects are contained in the "network"
 -- Configuration object, which is stored in the ReplicatedStorage service.
 --
--- ## API
+-- <h2>API</h2>
 --
 -- - `network.Socket ( peer, port )`
 --
@@ -27,7 +27,7 @@
 -- 	The only parameter passed to the callback is a socket object representing
 -- 	the detected connection.
 --
--- ## Socket
+-- <h2>Socket</h2>
 --
 -- A Socket represents a connection between two peers.
 --
@@ -58,7 +58,7 @@
 -- 	Closes the connection. Subsequent calls to Send and Receive will throw an
 -- 	error. If Receive is blocking, then it will throw an error.
 --
--- ## Listener
+-- <h2>Listener</h2>
 --
 -- A Listener is used to detect incoming connections from other peers.
 --

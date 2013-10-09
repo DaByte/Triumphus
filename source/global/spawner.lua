@@ -1,6 +1,6 @@
 --- The spawner package provides replacement functionality for character spawning, which is normally overridden by Cure. This is not available to clients.
 --
--- ## API
+-- <h2>API</h2>
 --
 -- - `spawner.Add ( player )`
 --
